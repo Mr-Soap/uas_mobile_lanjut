@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DigiNews DEV",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dev",
+                "--dart-define=ENV=DEV",
+                "--dart-define=API_KEY=1ca7f06ad58b814d27bbb4d17f389017"
+            ]
+        },
+        {
+            "name": "DigiNews PROD",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "prod",
+                "--dart-define=ENV=PROD",
+                "--dart-define=API_KEY=1ca7f06ad58b814d27bbb4d17f389017"
+            ]
+        }
+    ]
+}

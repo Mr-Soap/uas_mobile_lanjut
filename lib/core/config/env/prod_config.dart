@@ -3,6 +3,6 @@ import 'environment.dart';
 
 const prodConfig = AppConfig(
   appName: "UTD - 20123049",
-  baseUrl: "https://newsapi.org",
+  baseUrl: "https://gnews.io/api/v4",
   environment: Environment.prod,
 );

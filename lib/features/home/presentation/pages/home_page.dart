@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uas_mobile_lanjut/features/news/data/datasources/news_remote_datasources.dart';
+import 'package:uas_mobile_lanjut/features/news/domain/repositories/news_repository.dart';
 import '../../../../core/di/service_locator.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,10 +26,9 @@ class _HomePageState extends State<HomePage> {
         child: ElevatedButton(
 
           onPressed: () async {
-            final datasource = sl<NewsRemoteDataSource>();
-            final result = await datasource.getTopHeadlines();
-            print(result.totalArticles);
-            print(result.articles.first.title);
+            final repository = sl<NewsRepository>();
+            final articles = await repository.getTopHeadlines();
+            print(articles.first.title);
           },
 
           child: const Text("Test API"),

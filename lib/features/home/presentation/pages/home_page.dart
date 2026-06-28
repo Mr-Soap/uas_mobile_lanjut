@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uas_mobile_lanjut/features/news/domain/usecases/get_top_headlines.dart';
-import '../../../../core/di/service_locator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uas_mobile_lanjut/features/news/presentation/bloc/news_state.dart';
+import 'package:uas_mobile_lanjut/features/news/presentation/bloc/news_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,27 +16,39 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-
       appBar: AppBar(
         title: const Text("DigiNews"),
       ),
+      body: BlocBuilder<NewsBloc, NewsState>(
+        builder: (context, state) {
+          if (state is NewsLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-      body: Center(
+          if (state is NewsLoaded) {
+            return ListView.builder(
+              itemCount: state.articles.length,
+              itemBuilder: (context, index) {
+                final article = state.articles[index];
 
-        child: ElevatedButton(
+                return ListTile(
+                  title: Text(article.title),
+                  subtitle: Text(article.sourceName),
+                );
+              },
+            );
+          }
 
-          onPressed: () async {
-            final usecase = sl<GetTopHeadlines>();
-            final articles = await usecase();
-            print(articles.first.title);
-          },
-
-          child: const Text("Test API"),
-
-        ),
-
-      ),
-
+          if (state is NewsError) {
+            return Center(
+              child: Text(state.message),
+            );
+          }
+          return const SizedBox();
+        },
+      )
     );
   }
 }

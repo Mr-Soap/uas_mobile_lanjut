@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
+import 'package:uas_mobile_lanjut/features/news/data/datasources/news_remote_datasources.dart';
 import '../../../../core/di/service_locator.dart';
-import '../../../../core/network/api_endpoint.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,26 +25,10 @@ class _HomePageState extends State<HomePage> {
         child: ElevatedButton(
 
           onPressed: () async {
-            final dio = sl<Dio>();
-            try {
-              final response = await dio.get(
-                ApiEndpoints.topHeadlines,
-                queryParameters: {
-                  'lang': 'en',
-                  'max': 10,
-                },
-              );
-              print("===== SUCCESS =====");
-              print(response.statusCode);
-              print(response.data);
-            } on DioException catch (e) {
-              print("===== ERROR =====");
-              print(e.response?.statusCode);
-              print(e.response?.data);
-              print(e.message);
-            } catch (e) {
-              print(e);
-            }
+            final datasource = sl<NewsRemoteDataSource>();
+            final result = await datasource.getTopHeadlines();
+            print(result.totalArticles);
+            print(result.articles.first.title);
           },
 
           child: const Text("Test API"),

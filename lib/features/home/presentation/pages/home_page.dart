@@ -4,6 +4,7 @@ import 'package:uas_mobile_lanjut/features/home/presentation/widgets/home_header
 import 'package:uas_mobile_lanjut/features/home/presentation/widgets/news_search_bar.dart';
 import 'package:uas_mobile_lanjut/features/news/presentation/bloc/news_state.dart';
 import 'package:uas_mobile_lanjut/features/news/presentation/bloc/news_bloc.dart';
+import 'package:uas_mobile_lanjut/features/news/presentation/widgets/article_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,9 +46,8 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       itemCount: state.articles.length,
                       itemBuilder: (context, index) {
-                        return Text(
-                          state.articles[index].title,
-                        );
+                        final article = state.articles[index];
+                        return ArticleCard(article: article);
                       },
                     );
                   }

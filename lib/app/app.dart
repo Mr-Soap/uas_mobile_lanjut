@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uas_mobile_lanjut/core/routing/app_router.dart';
 import 'package:uas_mobile_lanjut/core/config/env/environment_config.dart';
+import 'package:uas_mobile_lanjut/core/theme/app_theme.dart';
 
 class DigiNewsApp extends StatelessWidget {
   const DigiNewsApp({super.key});
@@ -11,6 +12,7 @@ class DigiNewsApp extends StatelessWidget {
       title: EnvironmentConfig.config.appName,
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router,
+      theme: AppTheme.lightTheme,
     );
   }
 }

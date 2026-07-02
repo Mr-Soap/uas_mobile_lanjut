@@ -17,4 +17,6 @@ class NewsRepositoryImpl implements NewsRepository {
 
     return articles;
   }
+
+  
 }

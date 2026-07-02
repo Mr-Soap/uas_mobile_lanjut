@@ -4,6 +4,7 @@ import '../models/news_response_model.dart';
 
 abstract class NewsRemoteDataSource {
   Future<NewsResponseModel> getTopHeadlines();
+  Future<NewsResponseModel> searchNews(String query);
 }
 
 class NewsRemoteDataSourcesImpl implements NewsRemoteDataSource{
@@ -19,7 +20,19 @@ class NewsRemoteDataSourcesImpl implements NewsRemoteDataSource{
         'max': 10,
       },
     );
+    return NewsResponseModel.fromJson(response.data);
+  }
 
+  @override
+  Future<NewsResponseModel> searchNews(String query) async {
+    final response = await dio.get(
+      ApiEndpoints.search,
+      queryParameters: {
+        "q": query,
+        "lang": "en",
+        "max": 10,
+      },
+    );
     return NewsResponseModel.fromJson(response.data);
   }
 }

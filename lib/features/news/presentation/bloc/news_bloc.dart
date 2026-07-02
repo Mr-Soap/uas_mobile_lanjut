@@ -7,11 +7,11 @@ import 'news_state.dart';
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   final GetTopHeadlines getTopHeadlines;
   final SearchNewsUsecase searchNewsUsecase;
-
+  
   NewsBloc (
     this.getTopHeadlines,
-    this.searchNewsUsecase
-  ) : super(NewsInitial()) {
+    this.searchNewsUsecase,
+      ) : super(NewsInitial()) {
     on<GetTopHeadlinesEvent>(_onGetTopHeadlines);
     on<SearchNewsEvent>(_onSearchNews);
   }

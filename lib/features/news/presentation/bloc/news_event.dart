@@ -10,3 +10,11 @@ abstract class NewsEvent extends Equatable {
 class GetTopHeadlinesEvent extends NewsEvent {
   const GetTopHeadlinesEvent();
 }
+
+class SearchNewsEvent extends NewsEvent {
+  final String query;
+  const SearchNewsEvent(this.query);
+
+  @override
+  List<Object> get props => [query];
+}

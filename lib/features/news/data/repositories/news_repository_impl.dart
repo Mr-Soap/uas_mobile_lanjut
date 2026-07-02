@@ -18,5 +18,15 @@ class NewsRepositoryImpl implements NewsRepository {
     return articles;
   }
 
-  
+  @override
+  Future<List<Article>> searchNews(String query) async {
+    final response = await remoteDataSource.searchNews(query);
+    final articles = response.articles;
+
+    articles.sort(
+      (a, b) => b.title.compareTo(a.title),
+    );
+
+    return articles;
+  }
 }

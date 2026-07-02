@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../news/presentation/bloc/news_bloc.dart';
+import '../../../news/presentation/bloc/news_event.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_radius.dart';
 import '../../../../core/theme/app_shadows.dart';
@@ -16,6 +19,12 @@ class NewsSearchBar extends StatelessWidget {
         boxShadow: AppShadows.card,
       ),
       child: TextField(
+        textInputAction: TextInputAction.search,
+        onSubmitted: (value) {
+          final query = value.trim();
+          if (query.isEmpty) return;
+          context.read<NewsBloc>().add(SearchNewsEvent(query));
+        },
         decoration: InputDecoration(
           hintText: "Search news...",
           hintStyle: TextStyle(

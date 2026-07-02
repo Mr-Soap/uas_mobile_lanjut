@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:uas_mobile_lanjut/core/routing/route_names.dart';
 import 'package:uas_mobile_lanjut/core/theme/app_colors.dart';
 import 'package:uas_mobile_lanjut/core/theme/app_radius.dart';
@@ -24,6 +25,8 @@ class _ArticleCardState extends State<ArticleCard> {
 
   @override
   Widget build(BuildContext context) {
+    final formattedDate = DateFormat('dd MMM yyyy').format(widget.article.publishedAt);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: TweenAnimationBuilder<double>(
@@ -117,38 +120,41 @@ class _ArticleCardState extends State<ArticleCard> {
                       children: [
 
                         //image
-                        ClipRRect(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(AppRadius.large),
-                          ),
-                    
-                          child: Stack(
-                            children: [
-                              widget.article.image.isNotEmpty
-                                ?  Image.network(
-                                    widget.article.image,
-                                    height: 220,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (_, __, ___) => _buildPlaceholder(),
-                                  )
-                                : _buildPlaceholder(),
-                              
-                              Positioned.fill(
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.transparent,
-                                        Colors.black.withAlpha(31),
-                                      ],
+                        Hero(
+                          tag: widget.article.url,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(AppRadius.large),
+                            ),
+                                              
+                            child: Stack(
+                              children: [
+                                widget.article.image.isNotEmpty
+                                  ?  Image.network(
+                                      widget.article.image,
+                                      height: 220,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (_, __, ___) => _buildPlaceholder(),
+                                    )
+                                  : _buildPlaceholder(),
+                                
+                                Positioned.fill(
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.black.withAlpha(31),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                     
@@ -196,7 +202,7 @@ class _ArticleCardState extends State<ArticleCard> {
                     
                                   Expanded(
                                     child: Text(
-                                      widget.article.publishedAt.toString(),
+                                      formattedDate,
                                       style: AppTextStyles.caption,
                                     ),
                                   ),

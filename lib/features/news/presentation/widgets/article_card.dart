@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:uas_mobile_lanjut/core/routing/route_names.dart';
 import 'package:uas_mobile_lanjut/core/theme/app_colors.dart';
 import 'package:uas_mobile_lanjut/core/theme/app_radius.dart';
 import 'package:uas_mobile_lanjut/core/theme/app_shadows.dart';
@@ -58,7 +60,12 @@ class _ArticleCardState extends State<ArticleCard> {
                 _pressed = false;
               });
             },
-            onTap: () {},
+            onTap: () {
+              context.push(
+                RouteNames.detailNews,
+                extra: widget.article,
+              );
+            },
             child: Ink(
               decoration: BoxDecoration(
                 gradient: const LinearGradient(

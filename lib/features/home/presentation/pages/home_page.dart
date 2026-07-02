@@ -7,6 +7,7 @@ import 'package:uas_mobile_lanjut/features/news/presentation/bloc/news_state.dar
 import 'package:uas_mobile_lanjut/features/news/presentation/bloc/news_bloc.dart';
 import 'package:uas_mobile_lanjut/features/news/presentation/widgets/article_card.dart';
 import 'package:uas_mobile_lanjut/core/widgets/loading_lottie.dart';
+import 'package:uas_mobile_lanjut/core/widgets/empty_state.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -42,6 +43,26 @@ class _HomePageState extends State<HomePage> {
 
                   //state loaded
                   if (state is NewsLoaded) {
+
+                     if (state.articles.isEmpty) {
+                      return RefreshIndicator(
+                        onRefresh: () async {
+                          context.read<NewsBloc>().add(
+                            const GetTopHeadlinesEvent(),
+                          );
+                        },
+                        child: const SingleChildScrollView(
+                          physics: AlwaysScrollableScrollPhysics(),
+                          child: SizedBox(
+                            height: 600,
+                            child: EmptyState(
+                              title: "No News Found",
+                              subtitle: "Try another keyword.",
+                            ),
+                          ),
+                        ),
+                      );
+                     }
                     return RefreshIndicator(
                       onRefresh: () async {
                         context.read<NewsBloc>().add(
